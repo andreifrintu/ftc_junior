@@ -14,7 +14,7 @@ import org.firstinspires.ftc.teamcode.drive.SampleMecanumDrive;
 public class AndreiTeleOp extends LinearOpMode {
 
         SampleMecanumDrive mecanumDrive;
-        AutoUtil util;
+        // AutoUtil util;
         DcMotorEx liftMotor1,liftMotor2, plateMotor;
         Servo catcher;
         NormalizedColorSensor sensor;
@@ -172,6 +172,9 @@ public class AndreiTeleOp extends LinearOpMode {
                 plateMotor.setTargetPosition(0);
             }
         }
+
+
+
         private void setLiftLevel(){
             if (gamepad2.a) {
                 pp = 0;
