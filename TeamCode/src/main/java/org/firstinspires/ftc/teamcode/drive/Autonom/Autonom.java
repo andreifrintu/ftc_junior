@@ -5,10 +5,10 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import org.firstinspires.ftc.teamcode.drive.SampleMecanumDrive;
-import Utils.SimpleControls;
 
 @Autonomous(group = "autonom")
-public class Autonom extends LinearOpMode {
+public class Autonom extends LinearOpMode
+{
 
     SampleMecanumDrive Drive;
 
@@ -21,11 +21,10 @@ public class Autonom extends LinearOpMode {
         waitForStart();
         while (!isStopRequested())
         {
-
             Trajectory tr1 = Drive.trajectoryBuilder(new Pose2d())
                     .forward(40)
                     .build();
-           Trajectory tr2 = Drive.trajectoryBuilder(new Pose2d(0,40))
+            Trajectory tr2 = Drive.trajectoryBuilder(new Pose2d(0,40))
                     .back(40)
                     .build();
             Drive.followTrajectory(tr1);
@@ -36,7 +35,8 @@ public class Autonom extends LinearOpMode {
         }
     }
 
-    void Init() {
+    void Init()
+    {
         Drive = new SampleMecanumDrive(hardwareMap);
         Drive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         Drive.setPoseEstimate(new Pose2d(0, 0));
