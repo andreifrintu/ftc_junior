@@ -12,7 +12,7 @@ public class Autonom extends LinearOpMode
 
     SampleMecanumDrive Drive;
 
-    double maxMotorPower = 0.1; // TODO: max motor power
+    double maxMotorPower = 0.1;
 
     @Override
     public void runOpMode() throws InterruptedException
@@ -21,15 +21,16 @@ public class Autonom extends LinearOpMode
         waitForStart();
         while (!isStopRequested())
         {
-            Trajectory tr1 = Drive.trajectoryBuilder(new Pose2d())
+            Trajectory traj1 = Drive.trajectoryBuilder(new Pose2d())
                     .forward(40)
                     .build();
-            Trajectory tr2 = Drive.trajectoryBuilder(new Pose2d(0,40))
+
+            Trajectory traj2 = Drive.trajectoryBuilder(traj1.end())
                     .back(40)
                     .build();
-            Drive.followTrajectory(tr1);
+            Drive.followTrajectory(traj1);
             sleep(1000);
-            Drive.followTrajectory(tr2);
+            Drive.followTrajectory(traj2);
 
             sleep(30000);
         }
