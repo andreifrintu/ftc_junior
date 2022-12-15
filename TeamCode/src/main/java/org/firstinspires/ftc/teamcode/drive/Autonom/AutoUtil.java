@@ -1,8 +1,11 @@
-package org.firstinspires.ftc.teamcode.autonom;
+/*
+
+package org.firstinspires.ftc.teamcode.Autonom;
 
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.Servo;
+
 
 import org.firstinspires.ftc.teamcode.AutoPosition;
 import org.firstinspires.ftc.teamcode.drive.SampleMecanumDrive;
@@ -64,3 +67,4 @@ public class AutoUtil {
     }
 
 }
+*/

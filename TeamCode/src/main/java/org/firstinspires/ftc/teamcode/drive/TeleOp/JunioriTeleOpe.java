@@ -57,7 +57,7 @@ public class JunioriTeleOpe extends LinearOpMode
         if (gamepad1.right_bumper)
             suppress = 0.3;
         else
-            suppress = 0.6;
+            suppress = 1;
     }
 
     boolean lastPressedStart = false;

@@ -14,7 +14,7 @@ import org.firstinspires.ftc.teamcode.drive.SampleMecanumDrive;
 public class AndreiTeleOp extends LinearOpMode {
 
         SampleMecanumDrive mecanumDrive;
-        org.firstinspires.ftc.teamcode.autonom.AutoUtil util;
+//        org.firstinspires.ftc.teamcode.autonom.AutoUtil util;
         DcMotorEx liftMotor1,liftMotor2, plateMotor;
         Servo catcher;
         NormalizedColorSensor sensor;
