@@ -5,11 +5,15 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 
+import org.firstinspires.ftc.robotcore.external.ClassFactory;
 import org.firstinspires.ftc.robotcore.external.hardware.camera.CameraName;
 import org.firstinspires.ftc.robotcore.external.navigation.AxesOrder;
+import org.firstinspires.ftc.robotcore.internal.system.ClassFactoryImpl;
 import org.firstinspires.ftc.teamcode.drive.SampleMecanumDrive;
 import org.firstinspires.ftc.robotcore.external.navigation.VuforiaBase;
 import org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer;
+import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackable;
+import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackables;
 
 @Autonomous(group = "autonom")
 public class Autonom extends LinearOpMode
@@ -23,11 +27,26 @@ public class Autonom extends LinearOpMode
 
     String VuforiaKey = "Aaiq/1//////AAABmR5nE1/0E0LclZpr6AaY5+A2o36In7uJDJ6OQngVynh2aDFKeiUTZQggihn/8KkhWmh5Jnb9cj7GU4nRu0leL6fxUJ4jg2j/4x2W+eVBwqiHHJPwMfYElGUwFiCT9CycVyk+lycCrUcMQrUMe2Aq0kWxMD3xbMDWBVUq2V3ceG6ec9GGYF/HRjVx2FoGFsiuxziwYFY/mKGN8l2kMvYvYdCog0XgHWMi5lfHo/cg0kXeVBYx72I7xD6pXuGMZlf3Lhk61R0iKn0uJ+rnZdc9UWpFhyQTokQDTCiJ5wm3eNShGn5qLSeIyw2w0wLWtLRRBlJEgxc2LOQeDjogMAIiXSvIw6pAbkRR8QflyUpNQ4j5";
 
+    VuforiaLocalizer vuforia;
+
+    ClassFactory classFactory = new ClassFactoryImpl(); // idk
+
     @Override
     public void runOpMode() throws InterruptedException
     {
         Init();
         waitForStart();
+
+        int cameraMonitorViewID = hardwareMap.appContext.getResources()
+                .getIdentifier("cameraMonitorViewId", "id",
+                 hardwareMap.appContext.getPackageName());
+        VuforiaLocalizer.Parameters params = new VuforiaLocalizer.Parameters(cameraMonitorViewID);
+        params.cameraDirection = VuforiaLocalizer.CameraDirection.BACK; // dubios
+        vuforia = classFactory.createVuforia(params);
+
+        // prostii cu vuforia trackables
+        // https://www.firstinspires.org/sites/default/files/uploads/resource_library/ftc/using-vumarks.pdf
+
         while (!isStopRequested())
         {
 
@@ -42,8 +61,5 @@ public class Autonom extends LinearOpMode
         Drive.setPoseEstimate(new Pose2d(0, 0));
         Drive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         Drive.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-
-        vf.initialize("", VuforiaLocalizer.CameraDirection.FRONT, true, false, VuforiaLocalizer.Parameters.CameraMonitorFeedback.AXES, 0, 0, 0, AxesOrder.XYZ, 0, 0, 0, true);
-        vf.activate();
     }
 }
