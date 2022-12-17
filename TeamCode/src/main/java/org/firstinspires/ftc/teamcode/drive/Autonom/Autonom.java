@@ -1,4 +1,6 @@
 package org.firstinspires.ftc.teamcode.drive.Autonom;
+
+
 import com.acmerobotics.roadrunner.geometry.Pose2d;
 import com.acmerobotics.roadrunner.trajectory.Trajectory;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
@@ -35,14 +37,14 @@ public class Autonom extends LinearOpMode
     public void runOpMode() throws InterruptedException
     {
         Init();
-        waitForStart();
 
         int cameraMonitorViewId = hardwareMap.appContext.getResources().getIdentifier("cameraMonitorViewId", "id", hardwareMap.appContext.getPackageName());
-        VuforiaLocalizer.Parameters params = new VuforiaLocalizer.Parameters();
+        VuforiaLocalizer.Parameters params = new VuforiaLocalizer.Parameters(cameraMonitorViewId);
         params.vuforiaLicenseKey = vuforiaKey;
         params.cameraMonitorFeedback = VuforiaLocalizer.Parameters.CameraMonitorFeedback.AXES;
         params.cameraDirection = VuforiaLocalizer.CameraDirection.BACK; // dubios
         vuforia = classFactory.createVuforia(params);
+        waitForStart();
 
         // prostii cu vuforia trackables
         // https://www.firstinspires.org/sites/default/files/uploads/resource_library/ftc/using-vumarks.pdf
@@ -50,8 +52,7 @@ public class Autonom extends LinearOpMode
 
         while (!isStopRequested())
         {
-
-            sleep(30000);
+            sleep(1);
         }
     }
 

@@ -24,15 +24,13 @@ public class JunioriTeleOpe extends LinearOpMode
 
     double suppress;
 
-    boolean lrSwitch = false; // ?
-
     @Override
     public void runOpMode() throws InterruptedException
     {
         Init();
         waitForStart();
 
-        while (!isStopRequested())
+        while (!isStopRequested() && opModeIsActive())
         {
             Suppress();
             controlWheels();
@@ -60,14 +58,9 @@ public class JunioriTeleOpe extends LinearOpMode
             suppress = 1;
     }
 
-    boolean lastPressedStart = false;
     private void controlWheels()
     {
         Pose2d poseEstimate = mecanumDrive.getPoseEstimate();
-        boolean pressedStart = gamepad1.start;
-        if (pressedStart&&!lastPressedStart)
-            lrSwitch = !lrSwitch;
-        lastPressedStart = pressedStart;
 
         Vector2d input = new Vector2d(
                     -gamepad1.left_stick_y * suppress,
