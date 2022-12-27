@@ -52,6 +52,7 @@ public class Autonom extends LinearOpMode
 
         while (!isStopRequested())
         {
+            telemetry.update();
             sleep(1);
         }
     }
