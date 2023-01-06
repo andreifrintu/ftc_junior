@@ -43,8 +43,7 @@ public class CamTest extends LinearOpMode
     ClassFactory classFactory = new ClassFactoryImpl(); // idk
 
     @Override
-    public void runOpMode() throws InterruptedException
-    {
+    public void runOpMode() throws InterruptedException {
         Init();
 
         int cameraMonitorViewId = hardwareMap.appContext.getResources().getIdentifier("cameraMonitorViewId", "id", hardwareMap.appContext.getPackageName());
@@ -53,7 +52,7 @@ public class CamTest extends LinearOpMode
         params.cameraMonitorFeedback = VuforiaLocalizer.Parameters.CameraMonitorFeedback.AXES;
         params.cameraDirection = VuforiaLocalizer.CameraDirection.BACK; // dubios
         vuforia = classFactory.createVuforia(params);
-        signalTargets = vuforia.loadTrackablesFromAsset("Conuri");
+        signalTargets = vuforia.loadTrackablesFromAsset("Test");
         signalTargets.get(0).setName("1");
         signalTargets.get(1).setName("2");
         signalTargets.get(2).setName("3");
@@ -62,28 +61,24 @@ public class CamTest extends LinearOpMode
         waitForStart();
 
 
-
         // https://www.firstinspires.org/sites/default/files/uploads/resource_library/ftc/using-vumarks.pdf
         // https://www.youtube.com/watch?v=2z-o9Ts8XoE
 
-        while (!isStopRequested())
-        {
+        while (!isStopRequested()) {
             for (VuforiaTrackable signal : signalTargets) {
-                boolean pose = ((VuforiaTrackableDefaultListener) signal.getListener()).isVisible();
-                telemetry.addData("isVisible", pose);
-                /*if (pose != null) {
+                OpenGLMatrix pose = ((VuforiaTrackableDefaultListener) signal.getListener()).getPose();
+                if (pose != null) {
                     VectorF translation = pose.getTranslation();
                     double degreeToTurn = Math.toDegrees(Math.atan2(translation.get(1), translation.get(2)));
                     telemetry.addData(signal.getName() + "-deg", degreeToTurn);
-                */
+                }
+                telemetry.update();
             }
-            telemetry.addData("test", "test");
-            telemetry.update();
-        }
 
+        }
     }
 
-    void Init()
+    public void Init()
     {
         Drive = new SampleMecanumDrive(hardwareMap);
         Drive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
