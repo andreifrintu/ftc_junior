@@ -10,6 +10,7 @@ import com.vuforia.Vuforia;
 
 import org.firstinspires.ftc.robotcore.external.ClassFactory;
 import org.firstinspires.ftc.robotcore.external.hardware.camera.CameraName;
+import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
 import org.firstinspires.ftc.robotcore.external.matrices.OpenGLMatrix;
 import org.firstinspires.ftc.robotcore.external.matrices.VectorF;
 import org.firstinspires.ftc.robotcore.external.navigation.AxesOrder;
@@ -38,7 +39,7 @@ public class CamTest extends LinearOpMode
 
     private VuforiaTrackables signalTargets;
     private VuforiaTrackableDefaultListener signalListener;
-
+    private WebcamName webcamName;
 
     ClassFactory classFactory = new ClassFactoryImpl(); // idk
 
@@ -46,13 +47,14 @@ public class CamTest extends LinearOpMode
     public void runOpMode() throws InterruptedException {
         Init();
 
+        webcamName = hardwareMap.get(WebcamName.class, "Webcam 1");
         int cameraMonitorViewId = hardwareMap.appContext.getResources().getIdentifier("cameraMonitorViewId", "id", hardwareMap.appContext.getPackageName());
         VuforiaLocalizer.Parameters params = new VuforiaLocalizer.Parameters(cameraMonitorViewId);
         params.vuforiaLicenseKey = vuforiaKey;
         params.cameraMonitorFeedback = VuforiaLocalizer.Parameters.CameraMonitorFeedback.AXES;
-        params.cameraDirection = VuforiaLocalizer.CameraDirection.BACK; // dubios
-        vuforia = classFactory.createVuforia(params);
-        signalTargets = vuforia.loadTrackablesFromAsset("Test");
+        params.cameraDirection = VuforiaLocalizer.CameraDirection.BACK; // dubios dubios dubios
+        vuforia = classFactory.getInstance().createVuforia(params);
+        signalTargets = vuforia.loadTrackablesFromAsset("Forme");
         signalTargets.get(0).setName("1");
         signalTargets.get(1).setName("2");
         signalTargets.get(2).setName("3");
