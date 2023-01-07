@@ -20,7 +20,8 @@ import Utils.SimpleControls;
 public class JunioriTeleOpe extends LinearOpMode
 {
     SampleMecanumDrive mecanumDrive;
-
+    DcMotorEx liftMotor1, liftMotor2, plateMotor;
+    int cp1 = 0, cp2 = 0, pp = 0;
     SimpleControls simple;
 
     double suppress;
@@ -35,6 +36,7 @@ public class JunioriTeleOpe extends LinearOpMode
         {
             Suppress();
             controlWheels();
+            controlArm();
             Temeletry();
         }
     }
@@ -77,8 +79,7 @@ public class JunioriTeleOpe extends LinearOpMode
 
         telemetry.addData("mV", input);
     }
-    DcMotorEx liftMotor1, liftMotor2;
-    int cp1 = 0, cp2 = 0;
+
     private void controlArm() {
         if (gamepad2.left_stick_y != 0) {
             liftMotor1.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
@@ -89,12 +90,12 @@ public class JunioriTeleOpe extends LinearOpMode
             else liftMotor1.setPower(1f * gamepad2.left_stick_y);
             if(liftMotor2.getTargetPosition() >= 0f && gamepad2.left_stick_y > 0) liftMotor2.setPower(0f);
             else liftMotor2.setPower(1f * gamepad2.left_stick_y);
-        } else {
+        } else   {
             liftMotor1.setTargetPosition(cp1);
             liftMotor1.setMode(DcMotor.RunMode.RUN_TO_POSITION);
             liftMotor2.setTargetPosition(cp2);
             liftMotor2.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-            if (liftMotor1.isBusy()) {
+            if(liftMotor1.isBusy()) {
                 if (liftMotor1.getCurrentPosition() > -10 && liftMotor1.getTargetPosition() > -10)
                     liftMotor1.setPower(0f);
                 else liftMotor1.setPower(1f);
@@ -103,7 +104,7 @@ public class JunioriTeleOpe extends LinearOpMode
                     liftMotor1.setPower(0f);
                 else liftMotor1.setPower(0.1f);
             }
-            if (liftMotor2.isBusy()) {
+            if(liftMotor2.isBusy()) {
                 if (liftMotor2.getCurrentPosition() > -10 && liftMotor2.getTargetPosition() > -10)
                     liftMotor2.setPower(0f);
                 else liftMotor2.setPower(1f);
@@ -113,7 +114,20 @@ public class JunioriTeleOpe extends LinearOpMode
                 else liftMotor2.setPower(0.1f);
             }
         }
+        if (gamepad2.right_trigger != 0 || gamepad2.left_trigger != 0) {
+            plateMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+            pp = plateMotor.getCurrentPosition();
+            plateMotor.setPower(1f * (gamepad2.right_trigger - gamepad2.left_trigger));
+        } else {
+            plateMotor.setTargetPosition(pp);
+            plateMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            if(plateMotor.isBusy())
+                plateMotor.setPower(1f);
+            else
+                plateMotor.setPower(0f);
+        }
     }
+
 
     void Temeletry()
     {
