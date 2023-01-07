@@ -5,6 +5,7 @@ import com.acmerobotics.roadrunner.geometry.Vector2d;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.Gamepad;
 
 import org.firstinspires.ftc.teamcode.drive.SampleMecanumDrive;
@@ -75,6 +76,43 @@ public class JunioriTeleOpe extends LinearOpMode
         );
 
         telemetry.addData("mV", input);
+    }
+    DcMotorEx liftMotor1, liftMotor2;
+    int cp1 = 0, cp2 = 0;
+    private void controlArm() {
+        if (gamepad2.left_stick_y != 0) {
+            liftMotor1.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+            cp1 = liftMotor1.getCurrentPosition();
+            liftMotor2.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+            cp2 = liftMotor2.getCurrentPosition();
+            if(liftMotor1.getTargetPosition() >= 0f && gamepad2.left_stick_y > 0) liftMotor1.setPower(0f);
+            else liftMotor1.setPower(1f * gamepad2.left_stick_y);
+            if(liftMotor2.getTargetPosition() >= 0f && gamepad2.left_stick_y > 0) liftMotor2.setPower(0f);
+            else liftMotor2.setPower(1f * gamepad2.left_stick_y);
+        } else {
+            liftMotor1.setTargetPosition(cp1);
+            liftMotor1.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            liftMotor2.setTargetPosition(cp2);
+            liftMotor2.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            if (liftMotor1.isBusy()) {
+                if (liftMotor1.getCurrentPosition() > -10 && liftMotor1.getTargetPosition() > -10)
+                    liftMotor1.setPower(0f);
+                else liftMotor1.setPower(1f);
+            } else {
+                if (liftMotor1.getCurrentPosition() > -10 && liftMotor1.getTargetPosition() > -10)
+                    liftMotor1.setPower(0f);
+                else liftMotor1.setPower(0.1f);
+            }
+            if (liftMotor2.isBusy()) {
+                if (liftMotor2.getCurrentPosition() > -10 && liftMotor2.getTargetPosition() > -10)
+                    liftMotor2.setPower(0f);
+                else liftMotor2.setPower(1f);
+            } else {
+                if (liftMotor2.getCurrentPosition() > -10 && liftMotor2.getTargetPosition() > -10)
+                    liftMotor2.setPower(0f);
+                else liftMotor2.setPower(0.1f);
+            }
+        }
     }
 
     void Temeletry()
