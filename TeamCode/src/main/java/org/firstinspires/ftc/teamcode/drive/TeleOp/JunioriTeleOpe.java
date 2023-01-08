@@ -36,7 +36,6 @@ public class JunioriTeleOpe extends LinearOpMode
         {
             Suppress();
             controlWheels();
-            controlArm();
             Temeletry();
         }
     }
@@ -80,6 +79,7 @@ public class JunioriTeleOpe extends LinearOpMode
         telemetry.addData("mV", input);
     }
 
+    // bravo codu n-ai initializat motoarele
     private void controlArm() {
         if (gamepad2.left_stick_y != 0) {
             liftMotor1.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);

@@ -54,7 +54,7 @@ public class CamTest extends LinearOpMode
         params.cameraMonitorFeedback = VuforiaLocalizer.Parameters.CameraMonitorFeedback.AXES;
         params.cameraDirection = VuforiaLocalizer.CameraDirection.BACK; // dubios dubios dubios
         vuforia = classFactory.getInstance().createVuforia(params);
-        signalTargets = vuforia.loadTrackablesFromAsset("Forme");
+        signalTargets = vuforia.loadTrackablesFromAsset("ConuriNoi");
         signalTargets.get(0).setName("1");
         signalTargets.get(1).setName("2");
         signalTargets.get(2).setName("3");

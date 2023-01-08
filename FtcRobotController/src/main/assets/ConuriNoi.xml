@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<QCARConfig xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="qcar_config.xsd">
+  <Tracking>
+    <ImageTarget name="fuljer" size="1000.000000 473.251038" />
+    <ImageTarget name="panouri" size="1000.000000 526.539307" />
+    <ImageTarget name="bece" size="1000.000000 464.912292" />
+  </Tracking>
+</QCARConfig>
