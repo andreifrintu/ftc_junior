@@ -1,6 +1,8 @@
 package org.firstinspires.ftc.teamcode.drive.Autonom;
 
 
+import android.graphics.Bitmap;
+
 import com.acmerobotics.roadrunner.geometry.Pose2d;
 import com.acmerobotics.roadrunner.trajectory.Trajectory;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
@@ -67,6 +69,9 @@ public class CamTest extends LinearOpMode
         // https://www.youtube.com/watch?v=2z-o9Ts8XoE
 
         while (!isStopRequested()) {
+
+            Bitmap beta = Bitmap.createBitmap(vuforia.rgb, );
+
             for (VuforiaTrackable signal : signalTargets) {
                 OpenGLMatrix pose = ((VuforiaTrackableDefaultListener) signal.getListener()).getPose();
                 if (pose != null) {

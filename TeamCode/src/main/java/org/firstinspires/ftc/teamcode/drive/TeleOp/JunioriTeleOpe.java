@@ -35,6 +35,7 @@ public class JunioriTeleOpe extends LinearOpMode
         while (!isStopRequested() && opModeIsActive())
         {
             Suppress();
+            controlArm();
             controlWheels();
             Temeletry();
         }
@@ -48,6 +49,19 @@ public class JunioriTeleOpe extends LinearOpMode
         mecanumDrive.setPoseEstimate(new Pose2d(0, 0));
         mecanumDrive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         mecanumDrive.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+
+        liftMotor1 = hardwareMap.get(DcMotorEx.class, "liftMotor1");
+        liftMotor2 = hardwareMap.get(DcMotorEx.class, "liftMotor2");
+        plateMotor = hardwareMap.get(DcMotorEx.class, "plateMotor");
+        liftMotor1.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        liftMotor1.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        liftMotor2.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        liftMotor2.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        plateMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        plateMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        plateMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
+        liftMotor1.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
+        liftMotor2.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
 
         simple = new SimpleControls();
     }
